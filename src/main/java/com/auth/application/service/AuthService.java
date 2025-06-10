@@ -5,10 +5,7 @@ import com.auth.common.exception.ErrorCode;
 import com.auth.domain.entity.User;
 import com.auth.domain.entity.UserRole;
 import com.auth.infrastructure.repository.UserRepository;
-import com.auth.presentation.dto.AdminSignUpRequest;
-import com.auth.presentation.dto.SignUpRequest;
-import com.auth.presentation.dto.SignUpResponse;
-import com.auth.presentation.dto.SwitchRoleResponse;
+import com.auth.presentation.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -52,7 +49,7 @@ public class AuthService {
      * @param request : 회원가입 내용 Request
      * @return : 관리자 회원가입 완료 DTO 반환
      */
-    public SignUpResponse adminSignUp(AdminSignUpRequest request) {
+    public AdminSignUpResponse adminSignUp(AdminSignUpRequest request) {
         // 1. username이 동일한 사용자가 있는지 확인
         validateUsernameDuplication(request.getUsername());
 
@@ -70,7 +67,7 @@ public class AuthService {
         // 5. User 저장
         User savedUser = userRepository.save(user);
 
-        return SignUpResponse.from(savedUser);
+        return AdminSignUpResponse.from(savedUser);
     }
 
     /**

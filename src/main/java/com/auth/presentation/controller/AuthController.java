@@ -3,6 +3,7 @@ package com.auth.presentation.controller;
 import com.auth.application.aop.ValidateAdmin;
 import com.auth.application.service.AuthService;
 import com.auth.infrastructure.security.UserDetailsImpl;
+import com.auth.presentation.api.AuthApi;
 import com.auth.presentation.dto.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthController implements AuthApi {
 
     private final AuthService authService;
 
@@ -35,8 +36,8 @@ public class AuthController {
      * @return : 관리자 회원가입 성공 결과
      */
     @PostMapping("/admin/signup")
-    public ResponseEntity<ApiResponse<SignUpResponse>> adminSignUp(@Valid @RequestBody AdminSignUpRequest request) {
-        SignUpResponse response = authService.adminSignUp(request);
+    public ResponseEntity<ApiResponse<AdminSignUpResponse>> adminSignUp(@Valid @RequestBody AdminSignUpRequest request) {
+        AdminSignUpResponse response = authService.adminSignUp(request);
         return ResponseEntity.ok(new ApiResponse<>(response));
     }
 
