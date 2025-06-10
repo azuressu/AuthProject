@@ -14,7 +14,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignUpResponse {
+public class AdminSignUpResponse {
 
     @Schema(description = "사용자명(아이디)", example = "username")
     private String username;
@@ -24,18 +24,18 @@ public class SignUpResponse {
 
     private List<RoleDto> roles;
 
-    public static SignUpResponse from(User user) {
-        return SignUpResponse.builder()
+    public static AdminSignUpResponse from(User user) {
+        return AdminSignUpResponse.builder()
                 .username(user.getUsername())
                 .nickname(user.getNickname())
-                .roles(List.of(new RoleDto(user.getUserRole())))
+                .roles(List.of(new AdminSignUpResponse.RoleDto(user.getUserRole())))
                 .build();
     }
 
     @Getter
     public static class RoleDto {
 
-        @Schema(description = "역할", example = "USER")
+        @Schema(description = "역할 이름", example = "ADMIN")
         private String role;
 
         public RoleDto(UserRole role) {
