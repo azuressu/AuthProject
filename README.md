@@ -11,7 +11,7 @@
 <br>
 
 ### API 명세서
-[API 명세서](0.0.0.0:8080/swagger-ui/index.html)
+[API 명세서](http://13.125.213.208:8080/swagger-ui/index.html#)
 
 ### ERD
 ![스크린샷 2025-06-11 134335](https://github.com/user-attachments/assets/2e87923f-daef-4faf-8f8f-c14b578eea57)
