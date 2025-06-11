@@ -1,5 +1,6 @@
 package com.auth.presentation.controller;
 
+import com.auth.infrastructure.repository.UserRepository;
 import com.auth.presentation.dto.AdminSignUpRequest;
 import com.auth.presentation.dto.LoginRequest;
 import com.auth.presentation.dto.SignUpRequest;
@@ -35,6 +36,9 @@ public class AuthRoleChangeTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Value("${admin.key}")
     private String adminKey;
@@ -84,8 +88,12 @@ public class AuthRoleChangeTest {
         JsonNode jsonNode = objectMapper.readTree(responseBody);
         String token = jsonNode.get("token").asText();
 
+        Long targetUserId = userRepository.findByUsername(username)
+                .orElseThrow()
+                .getUserId();
+
         // then
-        mockMvc.perform(patch("/admin/users/1/roles")
+        mockMvc.perform(patch("/admin/users/"+targetUserId+"/roles")
                         .header("Authorization", token)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
